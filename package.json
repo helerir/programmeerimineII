@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/helerir/programmeerimineII#readme",
   "dependencies": {
-    "express": "^4.15.4",
-    "marko": "^4.4.28"
+    "ejs": "^2.5.7",
+    "express": "^4.15.4"
   }
 }
