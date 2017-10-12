@@ -31,4 +31,8 @@ router.get('/posts', (req, res) => {
 	});
 });
 
+router.get('/posts/add', (req, res) => {
+	res.render('pages/add-post');
+});
+
 module.exports = router;
