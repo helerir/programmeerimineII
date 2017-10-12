@@ -25,7 +25,8 @@ router.get('/posts', (req, res) => {
 		} else {
 			res.locals.posts = posts;
 			console.log(posts);
-			//res.render('pages/')
+			res.render('pages/posts')
+			//res.json(posts);
 		}
 	});
 });
