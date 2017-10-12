@@ -64,20 +64,52 @@ router.post('/posts/add', (req, res) => {
 
 router.get('/post/:id', (req, res) => {
 	let postId = req.params.id;
-	post.findOne({_id: postId}).exec((err, post) => {
+	Post.findOne({_id: postId}).exec((err, post) => {
 		if(err) {
 			console.log(err);
 			res.redirect('/posts');
 		} else {
 			res.locals.post = post;
-			res.render('/pages/single-post')
+			res.render('pages/single-post')
 		}
 	});
 });
 
 
+//Postituse muutmise vaade
 
+router.get('/post/:id/edit', (req, res) => {
+	let postId = req.params.id;
+	Post.findOne({_id: postId}).exec((err, post) => {
+		if(err) {
+			console.log(err);
+			res.redirect('/posts');
+		} else {
+			res.locals.post = post;
+			res.render('pages/edit-post')
+		}
+	});
+});
 
+router.post('/post/:id/edit', (req, res) => {
+	let post = {
+		title: req.body.title,
+		author: req.body.author,
+		content: req.body.content
+	};
+
+	let query = {_id: req.params.id};
+
+	Post.update(query, post, (err) => {
+		if(err) {
+			console.log(err);
+			res.redirect('/post/' + req.params.id + '/edit');
+		} else {
+			res.redirect('/post/' + req.params.id);
+		}
+	});
+
+});
 
 
 
