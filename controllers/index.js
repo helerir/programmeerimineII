@@ -1,8 +1,12 @@
 const express = require('express');
+bodyParser = require('body-parser');
 const router = express.Router();
 
 
-const Post = require('../models/post.js');
+const Post = require('../models/post');
+
+router.use(bodyParser.urlencoded({ extended: false }));
+router.use(bodyParser.json());
 
 /**
  * 
@@ -33,6 +37,22 @@ router.get('/posts', (req, res) => {
 
 router.get('/posts/add', (req, res) => {
 	res.render('pages/add-post');
+});
+
+router.post('/posts/add', (req, res) => {
+	console.log(req.body);
+	let newPost = new Post({
+		title: req.body.title,
+		author: req.body.author,
+		content: req.body.content
+	});
+
+	newPost.save((err) => {
+		if(err) {
+			console.log(err);
+			res.redirect('/posts');
+		}
+	});
 });
 
 module.exports = router;
