@@ -1,6 +1,16 @@
 const express = require('express'); // Lisame express mooduli, selle abil loome Node.js baasil veebiserveri
+const mongoose = require('mongoose');
+
 const indexRoutes = require('./controllers/index');
 const infoRoutes = require('./controllers/info');
+
+mongoose.connect('mongodb://localhost/prog2');
+
+let db = mongoose.connection;
+
+db.once('open', function() {
+	console.log('Connected to database');
+});
 
 /**
  * express rakenduse konstant, mille kaudu saame ligi veebiserverile
