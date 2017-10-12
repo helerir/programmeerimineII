@@ -51,6 +51,8 @@ router.post('/posts/add', (req, res) => {
 		if(err) {
 			console.log(err);
 			res.redirect('/posts');
+		} else {
+			res.redirect('/posts');
 		}
 	});
 });
