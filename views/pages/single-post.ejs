@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <% include ../partials/head %>
+    <body>
+        <header>
+            <% include ../partials/header %>
+        </header>
+
+        <main>
+            <div class="container">
+                <h1><%= post.title %></h1>
+                <div><%= post.author %> | <%= post.createdAt %></div>
+                <p><%= post.content %></p>
+                <hr>
+                <a href="/post/<%= post._id %>/edit" class="btn btn-primary"></a>
+            </div>
+        </main>
+        <footer class="bg-light">
+            <% include ../partials/footer %>
+        </footer>
+    </body>
+</html>
