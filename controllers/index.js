@@ -111,6 +111,17 @@ router.post('/post/:id/edit', (req, res) => {
 
 });
 
+router.delete('/post/:id', (req, res) => {
+	let query = {_id: req.params.id};
+
+	Post.remove(query, (err) => {
+		if(err) {
+			console.log(err);
+		} 
+		res.send('Success');
+	});
+});
+
 
 
 
