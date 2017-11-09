@@ -16,6 +16,16 @@ router.use(bodyParser.json());
  * kus esimene parameeter on relatiivne asukoht serveri mõistes
  * ehk kui veebiserver on localhost:3000, siis app.get('/asukoht') oleks localhost:3000/asukoht.
 */
+
+function ensureAuthenticated(req, res, next) {
+	if(req.isAuthenticated()) {
+		return next();
+	} else {
+		req.flash('danger', 'Please login');
+		return res.redirect('/login');
+	}
+}
+
 router.get('/', (req, res) => {
     /**
      * Vaate "renderdamine", ehk parsitakse EJS süntaks HTML-iks kokku
@@ -33,8 +43,15 @@ router.post('/login', (req, res, next) => {
 	passport.authenticate('local', {
 		successRedirect: '/',
 		failureRedirect: '/login',
-		failureFlash: false
+		failureFlash: true
 	})(req, res, next);
+});
+
+//logout
+router.get('/logout', (req, res) => {
+	req.logout();
+	req.flash('success', 'You are logged out!');
+	return res.redirect('/');
 });
 
 //reigster
@@ -88,7 +105,7 @@ router.get('/posts', (req, res) => {
 
 //Postituse lisaimise vaade
 
-router.get('/posts/add', (req, res) => {
+router.get('/posts/add', ensureAuthenticated, (req, res) => {
 	res.render('pages/add-post');
 });
 
