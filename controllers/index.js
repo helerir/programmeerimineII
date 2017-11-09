@@ -2,7 +2,7 @@ const express = require('express');
 bodyParser = require('body-parser');
 const router = express.Router();
 const bcrypt = require("bcryptjs");
-
+const passport = require("passport");
 
 const Post = require('../models/post');
 const User = require('../models/user');
@@ -27,6 +27,14 @@ router.get('/', (req, res) => {
 //login
 router.get('/login', (req, res) => {
     res.render('pages/login');
+});
+
+router.post('/login', (req, res, next) => {
+	passport.authenticate('local', {
+		successRedirect: '/',
+		failureRedirect: '/login',
+		failureFlash: false
+	})(req, res, next);
 });
 
 //reigster
