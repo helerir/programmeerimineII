@@ -22,6 +22,17 @@ router.get('/', (req, res) => {
     res.render('pages/index');
 });
 
+//login
+router.get('/login', (req, res) => {
+    res.render('pages/login');
+});
+
+//reigster
+
+router.get('/register', (req, res) => {
+    res.render('pages/register');
+});
+
 router.get('/posts', (req, res) => {
 	Post.find({}, (err, posts) => {
 		if(err) {
