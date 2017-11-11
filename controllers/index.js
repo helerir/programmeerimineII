@@ -91,7 +91,7 @@ router.post('/register', (req, res) => {
 
 
 router.get('/posts', (req, res) => {
-	Post.find({}, (err, posts) => {
+	Post.find({}).populate('author').exec( (err, posts) => {
 		if(err) {
 			console.log(err);
 		} else {
@@ -111,10 +111,10 @@ router.get('/posts/add', ensureAuthenticated, (req, res) => {
 
 
 router.post('/posts/add', (req, res) => {
-	console.log(req.body);
+	console.log(req.body.id);
 	let newPost = new Post({
 		title: req.body.title,
-		author: req.body.author,
+		author: req.user._id,
 		content: req.body.content
 	});
 
